@@ -1,5 +1,5 @@
 '''
-# 11.0 Jedi Training (50pts)  Name:________________
+# 11.0 Jedi Training (50pts)  Name:_Thomas Mitchell_
 
 
 
@@ -7,7 +7,7 @@
 CHAPTER 11 FINAL CODE QUESTIONS: (10pts)
 --------------------------------
 1.) Where is the ball's original location?
-
+320, 240
 2.) What are the variables dx and dy?
 
 3.) How many pixels/sec does the ball move in the x-direction?
@@ -57,6 +57,89 @@ Helpful Hints:
 5.) In the on_update section use: for box in self.boxlist: box.update_box()
 '''
 
+import arcade
+
+
+
+SW = 640
+
+SH = 480
+
+
+
+class Ball:
+
+    def __init__(self, pos_x, pos_y, dx, dy, rad, col):
+
+        self.pos_x = pos_x
+
+        self.pos_y = pos_y
+
+        self.dx = dx
+
+        self.dy = dy
+
+        self.rad = rad
+
+        self.col = col
+
+    def draw_ball(self):
+
+        arcade.draw_circle_filled(self.pos_x, self.pos_y, self.rad, self.col)
+
+    def update_ball(self):
+
+        self.pos_y += self.dy
+
+        self.pos_x += self.dx
+
+
+
+        #bounce off edge of screen
+
+        if self.pos_x < self.rad or self.pos_x > SW - self.rad:
+
+            self.dx *= -1
+
+        if self.pos_y < self.rad or self.pos_y > SH - self.rad:
+
+            self.dy *= -1
+
+
+
+class MyGame(arcade.Window):
+
+    def __init__(self, width, height, title):
+
+        super().__init__(width, height, title)
+
+        arcade.set_background_color(arcade.color.ASH_GREY)
+
+        self.ball = Ball(320, 240, 3, 2, 15, arcade.color.BLUEBERRY)
+
+    def on_draw(self):
+
+        arcade.start_render()
+
+        self.ball.draw_ball()
+
+    def on_update(self, dt):
+
+        self.ball.update_ball()
+
+
+
+def main():
+
+    window = MyGame(SW, SH, "Ball")
+
+    arcade.run()
+
+
+
+if __name__ == "__main__":
+
+    main()
 
 
 
@@ -79,3 +162,4 @@ the following requirements:
 9.) Color snowflake #1 red just for fun.
 10.) All other snowflakes should be white.
 '''
+
